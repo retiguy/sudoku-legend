@@ -1,0 +1,10 @@
+SUDOKU LEGEND V3.0 - 수동 클라우드 동기화 초기 버전
+1. Supabase에서 프로젝트 생성 후 SQL Editor에 supabase_setup.sql 실행.
+2. Project Settings / API에서 Project URL과 publishable(또는 anon) 키 확인.
+3. js/cloud-config.js에 url과 anonKey 입력. service_role 또는 secret 키 절대 사용 금지.
+4. 웹에서 실행 후 상단 ☁️ 동기화 클릭, 가입/로그인.
+5. PC에서 ⬆️ 올리기 → 스마트폰에서 같은 계정으로 로그인 후 ⬇️ 가져오기.
+6. 게임 실행 중 양쪽에서 동시에 변경하면 마지막 업로드가 이전 데이터를 덮어씁니다.
+7. 이 버전은 수동 동기화이며 실시간 자동 동기화가 아닙니다.
+8. GitHub Pages에 공개할 때 js/cloud-config.js에는 공개 키만 넣으세요.
+9. 파일:// 실행은 인증/브라우저 저장소 정책으로 문제가 생길 수 있으니 localhost 또는 GitHub Pages에서 실행을 권장합니다.

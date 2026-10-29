@@ -1,0 +1,7 @@
+SUDOKU LEGEND V3.4 — Play Store preparation / mobile UX
+- Mobile navigation: horizontal swipe, 44px+ touch targets
+- Sudoku keypad and action buttons: 48px minimum tap height
+- Safe-area spacing, reduced-motion accessibility, focus indicators
+- Version label updated to V3.4
+- Game logic, storage keys, account and cloud logic unchanged
+- APK/AAB build and store compliance NOT verified

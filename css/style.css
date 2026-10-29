@@ -114,3 +114,24 @@ html,body{max-width:100%;overflow-x:hidden}
  #board{width:100%!important;max-width:540px!important;}
  #numbers,.actions,.key-help,#message{width:100%;max-width:540px!important;}
 }
+
+/* V3.4: touch-first mobile UI; gameplay and save logic unchanged */
+html{-webkit-text-size-adjust:100%;}button,.cell{touch-action:manipulation;-webkit-tap-highlight-color:transparent;}
+button:focus-visible,.cell:focus-visible{outline:3px solid var(--gold);outline-offset:2px;}
+@media(max-width:720px){
+ .app-shell{padding:10px 10px calc(18px + env(safe-area-inset-bottom,0px))!important;}
+ .main-nav{display:flex!important;flex-wrap:nowrap!important;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x proximity;scrollbar-width:none;padding:2px 0 8px;}
+ .main-nav::-webkit-scrollbar{display:none;}
+ .main-nav button{flex:0 0 auto!important;min-height:44px;padding:10px 14px!important;scroll-snap-align:start;}
+ .game-panel{border-radius:15px!important;}
+ #board{width:100%!important;aspect-ratio:1!important;}
+ #board .cell{min-height:0!important;}
+ #numbers{grid-template-columns:repeat(9,minmax(0,1fr));gap:3px!important;margin:10px auto!important;}
+ #numbers button{min-height:48px;padding:6px 0!important;border-radius:8px;}
+ .actions button{min-height:48px!important;padding:8px 2px!important;}
+ .left-panel select,.left-panel button{min-height:44px;}
+ .win-dialog{max-height:calc(100dvh - 36px);overflow-y:auto;}
+ .toast23{max-width:calc(100vw - 28px);width:max-content;text-align:center;bottom:calc(18px + env(safe-area-inset-bottom,0px));}
+}
+@media(max-width:380px){.actions button{font-size:10px!important;}#numbers button{font-size:17px!important;}}
+@media(prefers-reduced-motion:reduce){button,.win-dialog,.win-crown{animation:none!important;transition:none!important;}}
