@@ -55,3 +55,62 @@ html[data-theme="light"] .main-nav button:not(.active),html[data-theme="light"] 
 html[data-theme="light"] .cell.error,html[data-theme="light"] .cell.conflict{color:#c52342}
 @media(max-width:1180px) and (min-width:721px){#gameLayout{grid-template-columns:minmax(180px,1fr) minmax(310px,650px)}#gameLayout .right-panel{grid-column:1/-1}}
 @media(max-width:720px){#gameLayout{display:flex;flex-direction:column}#board{width:min(100%,var(--legend-board-size,540px))}.game-panel{padding:10px}.game-heading{margin-bottom:8px}#numbers{gap:3px;margin-top:8px}#numbers button{padding:9px 0}.actions{gap:4px}.actions button{padding:10px 2px}.legend-focus #gameLayout .left-panel,.legend-focus #gameLayout .right-panel{display:none!important}}
+
+
+/* V3.1 responsive improvements — gameplay and storage logic unchanged */
+html,body{max-width:100%;overflow-x:hidden}
+#gameLayout .game-panel{overflow:visible}
+#board{flex-shrink:0;max-width:100%;height:auto!important;aspect-ratio:1/1;grid-template-rows:repeat(9,minmax(0,1fr))}
+#board .cell{min-height:0;min-width:0;overflow:hidden}
+@media(min-width:721px){#gameLayout{grid-template-columns:minmax(175px,1fr) minmax(0,680px) minmax(175px,1fr)}#gameLayout .game-panel{min-width:0}}
+@media(max-width:720px){
+.app-shell{padding:10px!important}.topbar{padding:4px 2px 12px!important;margin-bottom:12px!important;gap:8px}
+.topbar h1{font-size:clamp(24px,7vw,34px)!important;line-height:1.15;letter-spacing:.4px!important}
+.topbar small,.eyebrow{font-size:9px;letter-spacing:1px}.tagline{font-size:12px}
+.main-nav{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px!important;margin-bottom:12px!important}
+.main-nav button{min-width:0;padding:10px 2px!important;font-size:clamp(10px,2.9vw,13px)!important;white-space:nowrap;border-radius:10px}
+.view-panel{padding:12px!important;min-height:0!important}.lobby-top{grid-template-columns:minmax(0,1fr)!important;gap:10px!important}
+.lobby-hero{min-height:0!important;padding:18px!important;margin:0!important}.lobby-hero h2{font-size:clamp(23px,6.5vw,32px)!important;line-height:1.25}
+.feature-hero{padding:16px!important;margin-bottom:10px!important}.feature-hero p{font-size:13px;line-height:1.55}
+.profile-feature{padding:16px!important}.profile-feature strong{font-size:28px!important}
+.feature-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.feature-card{padding:12px!important;min-width:0}.feature-card h3{font-size:14px}.feature-card p{font-size:12px}
+#gameLayout{width:100%;gap:10px}.game-panel{padding:9px!important;min-width:0}
+#board{width:100%!important;max-width:min(100%,540px)!important;margin-inline:auto}
+#board .cell{font-size:clamp(15px,5vw,24px)}#board .cell.notes{font-size:clamp(7px,1.8vw,10px)}
+#numbers,.actions,.key-help,#message{max-width:min(100%,540px)!important}
+#numbers{gap:3px}#numbers button{padding:9px 0!important;font-size:clamp(15px,4.5vw,22px)}
+.actions{gap:4px}.actions button{font-size:clamp(10px,2.8vw,13px)!important;min-height:42px}
+.left-panel{order:2}.right-panel{order:3}
+}
+@media(max-width:360px){.main-nav{grid-template-columns:repeat(3,minmax(0,1fr))}.feature-grid{grid-template-columns:1fr 1fr}}
+
+/* V3.2: PC 게임판 확대 / 모바일 화면 맞춤 */
+@media(min-width:721px){
+ #gameLayout{grid-template-columns:minmax(180px,1fr) minmax(420px,680px) minmax(180px,1fr)}
+ #board{width:min(100%,var(--legend-board-size,560px))!important}
+ #numbers,.actions,.key-help,#message{width:min(100%,var(--legend-board-size,560px));max-width:100%}
+ #board .cell{font-size:clamp(21px,2.2vw,32px)}
+ #numbers button{min-height:48px;font-size:21px}
+ .actions button{min-height:44px}
+}
+@media(min-width:721px) and (max-width:1180px){#gameLayout{grid-template-columns:minmax(180px,1fr) minmax(420px,680px)} }
+@media(max-width:720px){
+ #board{width:min(100%,540px)!important;max-width:100%!important}
+ #numbers,.actions,.key-help,#message{width:min(100%,540px);max-width:100%!important}
+ #board .cell{font-size:clamp(16px,5vw,25px)}
+}
+
+
+/* V3.3: board size determined by actual central panel width, never viewport height */
+@media (min-width:721px){
+ #gameLayout{grid-template-columns:minmax(180px,1fr) minmax(0,680px) minmax(180px,1fr)!important;}
+ #gameLayout .game-panel{min-width:0!important;}
+ #board{width:min(100%,var(--legend-board-size,560px))!important;max-width:560px!important;}
+ #numbers,.actions,.key-help,#message{width:min(100%,var(--legend-board-size,560px));max-width:560px!important;}
+ .legend-focus #board{max-width:760px!important;}
+ .legend-focus #numbers,.legend-focus .actions,.legend-focus .key-help,.legend-focus #message{max-width:760px!important;}
+}
+@media(max-width:720px){
+ #board{width:100%!important;max-width:540px!important;}
+ #numbers,.actions,.key-help,#message{width:100%;max-width:540px!important;}
+}

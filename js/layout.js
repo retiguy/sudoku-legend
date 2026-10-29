@@ -14,8 +14,10 @@
    const used=(top?.getBoundingClientRect().bottom||130)+(nav?.getBoundingClientRect().height||48)+55;
    // 보드 위 제목/아래 입력·조작 버튼을 위한 높이를 예약한다.
    const available=h-used-195;
-   const side=focus?Math.min(w-60,880):Math.min(w*.43,680);
-   const board=mobile?Math.max(250,Math.min(w-42,540)):Math.max(310,Math.min(side,available));
+   const panel=game?.querySelector('.game-panel');
+   const panelWidth=panel?.clientWidth||Math.min(w*.46,680);
+   // 데스크톱은 중앙 패널 너비를 기준으로 확대하고, 낮은 화면은 스크롤을 허용합니다.
+   const board=mobile?Math.min(w-40,540):Math.min(focus?760:560,Math.max(280,panelWidth-36));
    root.style.setProperty('--legend-board-size',Math.round(board)+'px');
    root.classList.toggle('legend-compact',!mobile && h<960);
  }
