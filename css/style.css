@@ -135,3 +135,8 @@ button:focus-visible,.cell:focus-visible{outline:3px solid var(--gold);outline-o
 }
 @media(max-width:380px){.actions button{font-size:10px!important;}#numbers button{font-size:17px!important;}}
 @media(prefers-reduced-motion:reduce){button,.win-dialog,.win-crown{animation:none!important;transition:none!important;}}
+
+/* V3.8: compact five-button toolbar without vertical scrolling */
+.actions{grid-template-columns:repeat(5,minmax(0,1fr))}
+.actions button{min-width:0;overflow:hidden;text-overflow:clip}
+@media(max-width:720px){.actions{gap:4px}.actions button{font-size:clamp(9px,2.45vw,12px);padding:10px 1px}}
