@@ -150,6 +150,31 @@ html,body{max-width:100%;overflow-x:hidden}
 #v40-pause-screen p{font-size:14px;font-weight:500}
 #v40-pause-screen button{font-size:16px;margin-top:8px}
 @media(max-width:720px){.v40-controls{margin-bottom:4px}.v40-controls button{padding:5px 10px;min-height:30px;font-size:12px}}
+
+/* V4.0.1 — fixed Sudoku pencil-mark positions (1 2 3 / 4 5 6 / 7 8 9) */
+#board .cell.notes {
+  display:grid!important;
+  grid-template-columns:repeat(3,minmax(0,1fr))!important;
+  grid-template-rows:repeat(3,minmax(0,1fr))!important;
+  align-items:stretch!important;
+  justify-items:stretch!important;
+  gap:0!important;
+  padding:1px!important;
+  white-space:normal!important;
+  line-height:1!important;
+}
+#board .cell.notes .note-digit {
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  width:100%!important;
+  height:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  font-size:clamp(7px,1.8vw,12px)!important;
+  font-weight:600!important;
+  line-height:1!important;
+}
 </style></head>
 <body><main class="app-shell"><div id="v35-toolbar"><button id="v35-back" type="button">← 로비</button><span>SUDOKU LEGEND</span><button id="v35-new" type="button">새 퍼즐</button></div>
 <header class="topbar"><div><small>PREMIUM PUZZLE RPG · V4.0</small><h1>SUDOKU <span>LEGEND</span></h1><p class="tagline">매일 한 판, 더 높은 레벨로.</p></div><div class="header-pill">✦ CLASSIC SUDOKU</div></header>
