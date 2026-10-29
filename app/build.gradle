@@ -1,0 +1,3 @@
+plugins { id 'com.android.application' }
+android { namespace 'com.retiguy.sudokulegend'; compileSdk 35
+ defaultConfig { applicationId 'com.retiguy.sudokulegend'; minSdk 24; targetSdk 35; versionCode 1; versionName '3.4' } }
