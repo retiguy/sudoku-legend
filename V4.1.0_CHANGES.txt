@@ -1,5 +1,0 @@
-Sudoku Legend V4.1.0 Premium
-- Premium Ice Blue default theme (existing users keep their selected theme)
-- Mint, Rose, AMOLED themes added; Dark, Light, Gold preserved
-- Premium board, buttons, HUD, settings toggles, difficulty dialog styling
-- Existing stage, cloud sync, gameplay, localStorage keys unchanged
