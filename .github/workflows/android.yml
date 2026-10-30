@@ -27,6 +27,9 @@ jobs:
           echo "ANDROID_HOME=$ANDROID_HOME"
           echo "ANDROID_SDK_ROOT=$ANDROID_SDK_ROOT"
 
+          # 안드로이드 SDK 디렉터리의 소유권을 현재 사용자에게 부여하여 권한 문제 해결
+          sudo chown -R $USER:$USER /usr/local/lib/android/sdk
+
           SDKMANAGER=$(find "${ANDROID_HOME:-/usr/local/lib/android/sdk}" -type f -name sdkmanager 2>/dev/null | head -n 1)
 
           if [ -z "$SDKMANAGER" ]; then
