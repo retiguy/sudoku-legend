@@ -1,0 +1,9 @@
+Sudoku Legend Android APK v1.0
+
+이 ZIP은 기존 sudoku-legend GitHub 저장소의 최상위 폴더에 압축을 해제합니다.
+기존 루트 index.html은 덮어쓰지 않습니다. GitHub Actions 빌드 시 루트 index.html을 앱 assets에 복사합니다.
+앱 버전: versionName 1.0 / versionCode 1
+GitHub Actions: .github/workflows/android-apk.yml
+빌드 결과: Actions > Build Sudoku Legend APK > 최신 실행 > Artifacts > SudokuLegend-v1.0-debug-apk
+주의: debug APK는 테스트 설치용입니다. 스토어 출시용 서명 APK가 아닙니다.
+주의: GitHub Actions에서 빌드되며 현재 환경에서 실제 빌드 성공 여부는 검증하지 못했습니다.
