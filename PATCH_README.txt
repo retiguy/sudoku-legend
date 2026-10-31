@@ -1,1 +1,1 @@
-힌트 기본 2개 프로필 저장 및 프로필 변경 후 자동 클라우드 업로드. 자동 업로드는 계정별 최초 수동 업로드 성공 후 활성화됩니다. 기존 게임 기록을 보존하려면 앱 삭제 없이 업데이트 설치하세요.
+Sudoku Legend themed in-game notices: auto-memo, bulk-input, hints, attendance and purchase errors. Replaces browser alert() for these actions. Existing game data, sync and shop layout preserved.
