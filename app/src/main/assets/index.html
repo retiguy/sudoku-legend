@@ -521,15 +521,59 @@ function createTrack(index){const r=rnd(0x6d2b79f5^(index*2654435761)),track=TRA
  return bars;
 }
 const COMPOSITIONS=TRACKS.map((_,i)=>createTrack(i));
-function playNote(midi,duration,when,loud=.04,type='sine'){
+// Instrument-specific synthesized timbres. All sounds are generated offline with Web Audio.
+const INSTRUMENTS=[
+ ['piano','cello','strings'],['glock','harp','pad'],
+ ['epiano','flute','bass'],['violin','harp','piano'],
+ ['marimba','pluck','pad'],['guitar','flute','pad'],
+ ['jazzpiano','bass','brush'],['arp','pad','bell'],
+ ['kalimba','guitar','flute'],['cello','horn','strings']
+];
+function playNote(midi,duration,when,loud=.04,instrument='piano'){
  const a=ctx();if(!a||!cfg.music||cfg.volume<=0)return;
- const hz=440*Math.pow(2,(midi-69)/12),o=a.createOscillator(),g=a.createGain();
- o.type=type;o.frequency.setValueAtTime(hz,when);
+ const hz=440*Math.pow(2,(midi-69)/12);
+ const percussive=['piano','jazzpiano','epiano','glock','harp','marimba','pluck','guitar','kalimba','bell','arp','bass'].includes(instrument);
+ const soft=['pad','strings','cello','violin','flute','horn'].includes(instrument);
+ const attack=percussive?.009:instrument==='pad'?.28:instrument==='strings'?.17:.075;
+ const sustain=percussive?Math.min(duration, instrument==='glock'||instrument==='bell'?1.6:1.05):duration;
+ const end=when+Math.max(.13,sustain);
  const peak=Math.max(.00001,loud*cfg.volume/100);
- g.gain.setValueAtTime(.00001,when);g.gain.exponentialRampToValueAtTime(peak,when+.045);
- g.gain.exponentialRampToValueAtTime(.00001,when+Math.max(.10,duration));
- o.connect(g);g.connect(a.destination);o.start(when);o.stop(when+duration+.04);
+ const output=a.createGain();output.gain.setValueAtTime(.00001,when);
+ output.gain.exponentialRampToValueAtTime(peak,when+attack);
+ if(percussive)output.gain.exponentialRampToValueAtTime(.00001,end);
+ else {output.gain.setValueAtTime(peak*.74,Math.max(when+attack,end-.16));output.gain.exponentialRampToValueAtTime(.00001,end+.15)}
+ output.connect(a.destination);
+ const profiles={
+  piano:[['triangle',1,1],['sine',2,.23],['sine',3,.10]],
+  jazzpiano:[['triangle',1,1],['sine',2,.13],['sine',3,.07]],
+  epiano:[['sine',1,1],['triangle',2,.19],['sine',3,.09]],
+  glock:[['sine',1,1],['sine',2.7,.23],['sine',4.1,.10]],
+  harp:[['triangle',1,1],['sine',2,.20]],
+  marimba:[['sine',1,1],['triangle',2,.17],['sine',3,.08]],
+  pluck:[['triangle',1,1],['sine',2,.12]],
+  guitar:[['triangle',1,1],['sine',2,.20],['sine',3,.08]],
+  kalimba:[['sine',1,1],['sine',2.9,.15]],
+  bell:[['sine',1,1],['sine',2.4,.18],['sine',3.8,.08]],
+  arp:[['triangle',1,1],['sine',2,.16]],
+  bass:[['sine',1,1],['triangle',2,.14]],
+  cello:[['sawtooth',1,.42],['sine',1,1],['triangle',2,.12]],
+  violin:[['sawtooth',1,.32],['triangle',1,1],['sine',2,.12]],
+  strings:[['triangle',1,1],['sawtooth',1,.20],['sine',2,.12]],
+  flute:[['sine',1,1],['sine',2,.08]],
+  horn:[['triangle',1,1],['sine',2,.30],['sine',3,.08]],
+  pad:[['sine',1,1],['triangle',1.005,.28],['sine',2,.12]],
+  brush:[['triangle',1,.45],['sine',2,.15]]
+ };
+ const parts=profiles[instrument]||profiles.piano;
+ for(const [wave,ratio,mix] of parts){
+  const o=a.createOscillator(),g=a.createGain();
+  o.type=wave;o.frequency.setValueAtTime(hz*ratio,when);
+  g.gain.value=mix/parts.length;
+  o.connect(g);g.connect(output);
+  o.start(when);o.stop(end+(soft?.20:.045));
+ }
 }
+
 function nextTrack(){
  if(cfg.musicMode==='repeat')return;
  if(cfg.musicMode==='sequential')activeTrack=(activeTrack+1)%10;
@@ -546,12 +590,15 @@ function scheduleMusic(){
   if(musicStep>=STEPS){musicStep=0;nextTrack()}
   const bar=Math.floor(musicStep/8),tick=musicStep%8,info=COMPOSITIONS[activeTrack][bar],note=info.notes[tick];
   const root=midiFromDegree(info.root,info.mode),section=info.section;
-  if(note!==null)playNote(60+note,BEAT*(section===2?2.0:1.62),nextMusicTime,info.loud*(section===3?.75:1),info.style);
+  const palette=INSTRUMENTS[activeTrack];
+  const lead=section===1?palette[1]:section===2?palette[2]:palette[0];
+  if(note!==null)playNote(60+note,BEAT*(section===2?2.0:1.62),nextMusicTime,info.loud*(section===3?.75:1),lead);
   if(tick===0){
-   playNote(36+root,BEAT*7.4,nextMusicTime,.030,'sine');
-   [0,2,4].forEach((d,i)=>playNote(48+midiFromDegree(info.root+d,info.mode),BEAT*6.5,nextMusicTime+i*.07,.012,'sine'));
+   playNote(36+root,BEAT*7.0,nextMusicTime,.027,palette[1]);
+   [0,2,4].forEach((d,i)=>playNote(48+midiFromDegree(info.root+d,info.mode),BEAT*6.5,nextMusicTime+i*.07,.012,palette[2]));
   }
-  if(tick===4||((activeTrack%2===0)&&tick===2))playNote(48+midiFromDegree(info.root+4+(tick===2?2:0),info.mode),BEAT*2.5,nextMusicTime,.011,'triangle');
+  if(tick===4||((activeTrack%2===0)&&tick===2))
+   playNote(48+midiFromDegree(info.root+4+(tick===2?2:0),info.mode),BEAT*2.5,nextMusicTime,.014,palette[1]);
   musicStep++;nextMusicTime+=BEAT;
  }
 }
