@@ -39,10 +39,24 @@ public class MainActivity extends Activity {
         webView.evaluateJavascript(js, result -> {if("true".equals(result))pendingOAuthCallback=null;});
     }
     @Override protected void onNewIntent(Intent intent){super.onNewIntent(intent);setIntent(intent);receiveOAuth(intent);}
-    @Override protected void onResume(){super.onResume();if(webView!=null)webView.postDelayed(this::deliverOAuth,500);}
+    private void immersiveMode() {
+        getWindow().getDecorView().setSystemUiVisibility(
+            android.view.View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+            | android.view.View.SYSTEM_UI_FLAG_FULLSCREEN
+            | android.view.View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+            | android.view.View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            | android.view.View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+            | android.view.View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+    }
+    @Override public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if (hasFocus) immersiveMode();
+    }
+    @Override protected void onResume(){super.onResume();immersiveMode();if(webView!=null)webView.postDelayed(this::deliverOAuth,500);}
 
     @Override public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        immersiveMode();
         webView = new WebView(this);
         setContentView(webView);
         WebSettings settings = webView.getSettings();
