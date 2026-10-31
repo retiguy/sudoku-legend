@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "com.sudokulegend.game.app-debug-5:/mipmap-xxhdpi_sudoku_legend_icon.png.flat",
+        "source": "com.sudokulegend.game.app-main-7:/mipmap-xxhdpi/sudoku_legend_icon.png"
+    },
+    {
+        "merged": "com.sudokulegend.game.app-debug-5:/mipmap-xhdpi_sudoku_legend_icon.png.flat",
+        "source": "com.sudokulegend.game.app-main-7:/mipmap-xhdpi/sudoku_legend_icon.png"
+    },
+    {
+        "merged": "com.sudokulegend.game.app-debug-5:/mipmap-xxxhdpi_sudoku_legend_icon.png.flat",
+        "source": "com.sudokulegend.game.app-main-7:/mipmap-xxxhdpi/sudoku_legend_icon.png"
+    },
+    {
+        "merged": "com.sudokulegend.game.app-debug-5:/mipmap-mdpi_sudoku_legend_icon.png.flat",
+        "source": "com.sudokulegend.game.app-main-7:/mipmap-mdpi/sudoku_legend_icon.png"
+    },
+    {
+        "merged": "com.sudokulegend.game.app-debug-5:/mipmap-hdpi_sudoku_legend_icon.png.flat",
+        "source": "com.sudokulegend.game.app-main-7:/mipmap-hdpi/sudoku_legend_icon.png"
+    }
+]

@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.sudokulegend.game.app-mergeDebugResources-3:/values-in/values-in.xml",
+            "map": [
+                {
+                    "source": "/data/data/com.itsaky.androidide/files/home/.gradle/caches/9.6.1/transforms/eac3540ba1e6795c4800b4e701deb267/transformed/logsender/res/values-in/values-in.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6",
+                        "startColumns": "4,4,4,4,4",
+                        "startOffsets": "55,141,201,273,347",
+                        "endColumns": "85,59,71,73,64",
+                        "endOffsets": "136,196,268,342,407"
+                    }
+                }
+            ]
+        }
+    ]
+}

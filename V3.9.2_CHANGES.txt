@@ -1,1 +1,0 @@
-V3.9.2: Fix auto notes in actual inline game script in index.html; version label updated. No save keys changed.
