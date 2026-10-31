@@ -1,9 +1,0 @@
-com.sudokulegend.game
-bool logsender_enabled
-drawable ic_androidide_log
-mipmap sudoku_legend_icon
-string msg_bind_service_failed
-string notification_action_exit
-string notification_channel_name
-string notification_text
-string notification_title

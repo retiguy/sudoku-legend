@@ -1,0 +1,5 @@
+
+# Build outputs
+.gradle/
+**/build/
+*.apk

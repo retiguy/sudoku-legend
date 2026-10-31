@@ -1,8 +1,0 @@
-com.sudokulegend.game:string/notification_title = 0x7f040004
-com.sudokulegend.game:string/notification_channel_name = 0x7f040002
-com.sudokulegend.game:string/notification_text = 0x7f040003
-com.sudokulegend.game:drawable/ic_androidide_log = 0x7f020000
-com.sudokulegend.game:string/msg_bind_service_failed = 0x7f040000
-com.sudokulegend.game:string/notification_action_exit = 0x7f040001
-com.sudokulegend.game:mipmap/sudoku_legend_icon = 0x7f030000
-com.sudokulegend.game:bool/logsender_enabled = 0x7f010000
