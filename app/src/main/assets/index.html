@@ -266,6 +266,9 @@ body:has(#gameLayout:not([hidden])) #menuToggle{display:none}
 @media(max-width:720px){#mainMenu{grid-template-columns:none!important}#v35-toolbar #v35-back{min-width:76px}body:has(#gameLayout:not([hidden])) #mainMenu{display:flex!important}body:has(#gameLayout:not([hidden])) #menuShade:not([hidden]){display:block!important}}
 @media(min-width:721px){#menuToggle{display:block}}
 
+/* Active pass styling, independent of auto-memo ON/OFF state */
+#gameLayout:not([hidden]) .actions button.pass-active{background:#ffd77f!important;color:#513817!important;border-color:#ffecae!important;box-shadow:inset 0 0 0 2px #e6b85b,0 0 0 1px #c99742!important}
+#gameLayout:not([hidden]) .actions button.pass-active .pass-countdown{color:#513817!important;opacity:1}
 /* Visible pass countdowns (not title-only tooltips) */
 .actions button .pass-countdown{display:block;font-size:10px;line-height:1.35;margin-top:3px;font-weight:700;white-space:nowrap;font-variant-numeric:tabular-nums;opacity:.9}
 .actions button .pass-countdown.expired{opacity:.7}
@@ -303,19 +306,6 @@ html[data-theme="ice"] #difficultyDialog .stage-tile.locked,html[data-theme="min
 #legendNotice .legend-notice-title{font-size:25px;font-weight:850;color:#f2ca7e;margin:0 0 14px}
 #legendNotice .legend-notice-message{font-size:17px;line-height:1.65;white-space:pre-line;overflow-wrap:anywhere;margin:0 0 25px}
 #legendNotice .legend-notice-ok{display:block;width:100%;min-height:52px;border:0;border-radius:13px;background:#f2ca7e;color:#322416;font-size:18px;font-weight:850}
-
-/* Active time passes: theme-independent visual state. */
-html[data-theme="gold"] #gameLayout .actions #autoNotes.pass-valid,
-html[data-theme="gold"] #gameLayout .actions #bulkInput.pass-valid,
-#gameLayout .actions #autoNotes.pass-valid,
-#gameLayout .actions #bulkInput.pass-valid{
- background:linear-gradient(145deg,#ffdf91,#e7b65b)!important;
- color:#432b12!important;
- border:2px solid #ffe7a9!important;
- box-shadow:inset 0 1px 0 #fff4ce,0 0 0 1px #b98534!important;
-}
-#gameLayout .actions #autoNotes.pass-valid .pass-countdown,
-#gameLayout .actions #bulkInput.pass-valid .pass-countdown{color:#5b3914!important;opacity:1!important}
 </style></head>
 <body><div id="legendNotice" hidden role="dialog" aria-modal="true" aria-labelledby="legendNoticeTitle"><div class="legend-notice-card"><div class="legend-notice-icon" id="legendNoticeIcon">✓</div><h2 class="legend-notice-title" id="legendNoticeTitle">구매 완료!</h2><p class="legend-notice-message" id="legendNoticeMessage"></p><button type="button" class="legend-notice-ok" id="legendNoticeOk">확인</button></div></div>
 <script>
@@ -400,9 +390,9 @@ refreshAutoNotes();selected=-1;history=[];save();render()}function valid(s){retu
  state.notes=next;
  return changed;
 }
-function passCountdown(ms){const sec=Math.max(0,Math.ceil(ms/1000));return String(Math.floor(sec/60)).padStart(2,'0')+':'+String(sec%60).padStart(2,'0')}
-function updateAutoNotesButton(){const b=$('autoNotes'),pass=window.AutoMemoPass.status();if(state.autoNotesEnabled&&!pass.active){state.autoNotesEnabled=false;save()}b.classList.toggle('active',!!state.autoNotesEnabled);b.classList.toggle('pass-valid',!!pass.active);const label=state.autoNotesEnabled?'▦ 자동메모 ON':'▦ 자동메모';const remaining=pass.active?'남은 '+passCountdown(pass.remaining):pass.started?'이용권 만료':'무료체험 대기';b.innerHTML='<span>'+label+'</span><span class="pass-countdown'+(pass.started&&!pass.active?' expired':'')+'">'+remaining+'</span>';b.title=pass.active?'이용권 남은 시간: '+passCountdown(pass.remaining):pass.started?'이용권 만료 · 상점에서 50코인으로 구매':'최초 ON 시 5분 무료 체험 시작';b.setAttribute('aria-pressed',String(!!state.autoNotesEnabled))}
-function updateBulkInputButton(){const b=$('bulkInput');if(!b)return;const pass=window.BulkInputPass.status();b.classList.toggle('pass-valid',!!pass.active);const remaining=pass.active?'남은 '+passCountdown(pass.remaining):pass.started?'이용권 만료':'무료체험 대기';b.innerHTML='<span>⇥ 일괄입력</span><span class="pass-countdown'+(pass.started&&!pass.active?' expired':'')+'">'+remaining+'</span>';b.title=pass.active?'이용권 남은 시간: '+passCountdown(pass.remaining):pass.started?'이용권 만료 · 상점에서 50코인으로 구매':'최초 사용 시 5분 무료 체험 시작';b.disabled=!!state.finished;}
+function passCountdown(ms){const sec=Math.max(0,Math.ceil(ms/1000));return Math.floor(sec/60)+'분 '+String(sec%60).padStart(2,'0')+'초'}
+function updateAutoNotesButton(){const b=$('autoNotes'),pass=window.AutoMemoPass.status();if(state.autoNotesEnabled&&!pass.active){state.autoNotesEnabled=false;save()}b.classList.toggle('active',!!state.autoNotesEnabled);b.classList.toggle('pass-active',!!pass.active);const label=state.autoNotesEnabled?'▦ 자동메모 ON':'▦ 자동메모 OFF';const remaining=pass.active?passCountdown(pass.remaining)+' 남음':pass.started?'이용권 만료':'무료체험 대기';b.innerHTML='<span>'+label+'</span><span class="pass-countdown'+(pass.started&&!pass.active?' expired':'')+'">'+remaining+'</span>';b.title=pass.active?'이용권 남은 시간: '+passCountdown(pass.remaining):pass.started?'이용권 만료 · 상점에서 50코인으로 구매':'최초 ON 시 5분 무료 체험 시작';b.setAttribute('aria-pressed',String(!!state.autoNotesEnabled))}
+function updateBulkInputButton(){const b=$('bulkInput');if(!b)return;const pass=window.BulkInputPass.status();b.classList.toggle('pass-active',!!pass.active);const remaining=pass.active?passCountdown(pass.remaining)+' 남음':pass.started?'이용권 만료':'무료체험 대기';b.innerHTML='<span>⇥ 일괄입력</span><span class="pass-countdown'+(pass.started&&!pass.active?' expired':'')+'">'+remaining+'</span>';b.title=pass.active?'이용권 남은 시간: '+passCountdown(pass.remaining):pass.started?'이용권 만료 · 상점에서 50코인으로 구매':'최초 사용 시 5분 무료 체험 시작';b.disabled=!!state.finished;}
 setInterval(()=>{if(!state)return;updateAutoNotesButton();updateBulkInputButton()},1000);
 function bulkInput(){if(paused||state.finished){$('message').textContent=paused?'일시정지를 해제해 주세요.':'완료한 퍼즐입니다.';return}let pass=window.BulkInputPass.status();if(pass.started&&!pass.active){$('message').textContent='🔒 일괄입력 이용권 만료 · 상점에서 50코인으로 구매하세요.';document.querySelector('.main-nav button[data-view="shop"]')?.click();return}if(!pass.started){pass=window.BulkInputPass.activate();window.dispatchEvent(new Event('sudoku:bulk-input-pass'))}const cells=[];for(let i=0;i<81;i++){const r=Math.floor(i/9),c=i%9,notes=state.notes[i];if(!state.puzzle[r][c]&&!state.values[r][c]&&Array.isArray(notes)&&notes.length===1){const n=Number(notes[0]);if(n>=1&&n<=9&&Number.isInteger(n))cells.push([r,c,i,n])}}if(!cells.length){$('message').textContent='메모에 숫자가 하나만 있는 빈칸이 없습니다.';updateBulkInputButton();return}snapshot();for(const [r,c,i,n] of cells){state.values[r][c]=n;delete state.notes[i]}refreshAutoNotes();save();render();$('message').textContent=`✓ 일괄입력 ${cells.length}칸 완료`;window.LegendSettings?.sound('input');checkWin()}
 function snapshot(){history.push({values:Sudoku.copy(state.values),notes:Sudoku.copy(state.notes)});if(history.length>100)history.shift()}function checkWin(){if(state.finished)return;if(state.values.every((row,r)=>row.every((v,c)=>v===state.solution[r][c]))){state.finished=true;save();
