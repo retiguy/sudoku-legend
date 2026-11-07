@@ -10,7 +10,7 @@
 <h2>1. 수집하는 정보와 이용 목적</h2>
 <ul>
 <li><b>기기에만 저장되는 정보</b>: 게임 진행 상황, 레벨·코인·통계, 설정(테마, 소리, 알림 시각 등). 로그인하지 않으면 이 정보는 기기 밖으로 나가지 않습니다.</li>
-<li><b>로그인 시(선택)</b>: Google 계정 로그인 시 계정 식별자와 이메일 주소를 인증 용도로 사용합니다. 서버(Supabase)에 게임 진행 기록을 저장해 여러 기기에서 이어서 하게 해 줍니다.</li>
+<li><b>로그인 시(선택)</b>: Google 계정 로그인 시 계정 식별자와 이메일 주소를 인증 용도로 사용합니다. 서버(Supabase)에 게임 진행 기록을 저장해 여러 기기에서 이어서 하게 해 줍니다. 서비스 개선을 위해 보상형 광고 시청 횟수(힌트·자동메모), 보유 코인·힌트 수를 날짜별로 함께 저장합니다.</li>
 <li><b>랭킹·친구 대결 참여 시(선택)</b>: 사용자가 정한 닉네임, 퍼즐 점수, 완료 시간, 실수 횟수를 서버에 저장하고 다른 사용자에게 닉네임과 기록이 표시됩니다. 닉네임에는 실명 등 개인정보를 쓰지 마세요.</li>
 </ul>
 
@@ -37,7 +37,7 @@
 <ul>
 <li>앱 내 설정 → "게임 초기화"로 기기와 클라우드의 게임 기록을 삭제할 수 있습니다.</li>
 <li><b>계정 삭제 방법</b>: 가입한 이메일에서 <b>retiguy@gmail.com</b> 으로 제목 "Sudoku Legend 계정 삭제 요청"을 적어 메일을 보내 주세요. 본인 확인 후 영업일 기준 7일 이내에 삭제하고 회신합니다.</li>
-<li><b>삭제되는 데이터</b>: 계정 정보(이메일·식별자), 클라우드에 저장된 게임 진행 기록, 랭킹·친구 대결 기록(닉네임 포함). 삭제 후에는 복구할 수 없습니다.</li>
+<li><b>삭제되는 데이터</b>: 계정 정보(이메일·식별자), 클라우드에 저장된 게임 진행 기록, 광고 시청 횟수·코인 기록, 랭킹·친구 대결 기록(닉네임 포함). 삭제 후에는 복구할 수 없습니다.</li>
 <li><b>계정 삭제 없이 일부만 삭제</b>: 위 메일로 랭킹 기록 등 특정 데이터의 삭제만 요청할 수도 있습니다.</li>
 <li>기기에만 저장된 데이터는 앱을 삭제하면 함께 지워집니다.</li>
 <li>친구 대결 기록은 30일이 지나면 자동으로 삭제됩니다.</li>
@@ -60,7 +60,7 @@
 <h2>1. Information we collect and how we use it</h2>
 <ul>
 <li><b>Stored only on your device:</b> game progress, level, coins, stats and settings (theme, sound, reminder time, language, etc.). If you don't sign in, this information never leaves your device.</li>
-<li><b>If you sign in (optional):</b> when you sign in with Google, your account identifier and email address are used for authentication. Your game progress is saved on our server (Supabase) so you can continue on multiple devices.</li>
+<li><b>If you sign in (optional):</b> when you sign in with Google, your account identifier and email address are used for authentication. Your game progress is saved on our server (Supabase) so you can continue on multiple devices. To improve the service we also store, per day, how many rewarded ads you watched (hints / auto-notes) and your coin and hint balance.</li>
 <li><b>If you join rankings or friend battles (optional):</b> the nickname you choose, puzzle scores, completion times and mistake counts are stored on the server, and your nickname and records are shown to other users. Please don't use your real name in your nickname.</li>
 </ul>
 
@@ -86,7 +86,7 @@
 <p><b>How to delete the account and data of Sudoku Legend (developer: RetiStark):</b></p>
 <ul>
 <li><b>How to request:</b> from the email you used to sign in, send an email to <b>retiguy@gmail.com</b> with the subject "Sudoku Legend account deletion request". We will verify your identity, delete your data within 7 business days and reply to you.</li>
-<li><b>Data that is deleted:</b> account information (email and identifier), game progress saved in the cloud, and ranking and battle records (including your nickname). Deleted data cannot be recovered.</li>
+<li><b>Data that is deleted:</b> account information (email and identifier), game progress saved in the cloud, ad-viewing counts and coin records, and ranking and battle records (including your nickname). Deleted data cannot be recovered.</li>
 <li><b>Delete only some data:</b> you can also ask by the same email to delete only specific data, such as ranking records, without deleting your account.</li>
 <li>Data stored only on your device is removed when you uninstall the App. In Settings, "Reset game" deletes game records on the device and in the cloud.</li>
 <li>Friend battle records are deleted automatically after 30 days.</li>
